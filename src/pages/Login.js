@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useContext, useState } from "react";
-import AuthStateGlobal from "../../context/AuthStateGlobal";
+import AuthStateGlobal from "../context/AuthStateGlobal";
 import { Form, Button, Container } from "semantic-ui-react";
-import { loginUser } from "../../context/actions/authentication.action";
+import { loginUser } from "../context/actions/authentication.action";
 import { useHistory } from "react-router-dom";
 
 const Login = props => {

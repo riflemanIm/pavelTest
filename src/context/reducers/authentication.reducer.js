@@ -1,5 +1,5 @@
 import { SET_CURRENT_USER } from "../actions/authentication.action";
-import isEmpty from "../validations/isEmpty";
+import isEmpty from "../../helpers/isEmpty";
 
 export default function(state, action) {
   switch (action.type) {

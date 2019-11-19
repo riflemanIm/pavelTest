@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useLayoutEffect, useContext } from "react";
-import { Header } from "../components/index.components";
-import { Form, Container, Divider, Button, Loader } from "semantic-ui-react";
-import { useHistory } from "react-router-dom";
-import AuthStateGlobal from "../context/AuthStateGlobal";
-import isEmpty from "../context/validations/isEmpty";
+import React, { useState, useEffect } from "react";
+import { Form, Divider, Button, Loader } from "semantic-ui-react";
+import isEmpty from "../helpers/isEmpty";
 import { find } from "lodash";
+import Body from "./Body";
 
-const options = [];
-const vals = [];
+const allOptions = [];
+const possiblePairs = [];
 const Converter = () => {
-  const history = useHistory();
-  const context = useContext(AuthStateGlobal);
   const [stateNum, setStateNum] = useState(1);
   const [val1, setVal1] = useState("USD");
   const [val2, setVal2] = useState("RUB");
@@ -33,18 +29,27 @@ const Converter = () => {
             const assets = item.asset.split("/");
             console.log("assets", assets);
             assets.forEach((it, i2) => {
-              if (isEmpty(find(options, { value: it })))
-                options.push({
+              if (isEmpty(find(allOptions, { value: it })))
+                allOptions.push({
                   key: `${i1}${i2}`,
                   text: it,
                   value: it
                 });
             });
-            vals.push({ val1: assets[0], val2: assets[1], quote: item.quote });
+            if (
+              isEmpty(find(possiblePairs, { val1: assets[0], val2: assets[1] }))
+            ) {
+              possiblePairs.push({
+                val1: assets[0],
+                val2: assets[1],
+                quote: item.quote
+              });
+            }
+
             setLoading(false);
           });
-          setOptions1(options);
-          setOptions2(options);
+          setOptions1([...allOptions]);
+          setOptions2([...allOptions]);
         } else {
           console.log("RESULT NOT OK");
           setLoading(false);
@@ -56,22 +61,22 @@ const Converter = () => {
   }, []);
 
   const handlerSelect = (v1, v2) => {
-    let op = [];
+    let options = [];
     setRes("");
     if (v1 != null) {
       setVal1(v1);
       /** оставляем только те что есть  */
-      op = vals
+      options = possiblePairs
         .filter(item => item.val1 === v1 || item.val2 === v1)
         .map((item, index) => ({
           key: index,
           text: item.val1 === v1 ? item.val2 : item.val1,
           value: item.val1 === v1 ? item.val2 : item.val1
         }));
-      setOptions2([...op]);
-      if (!isEmpty(op)) {
-        //setVal2(op[0].value);
-        //calc(v1, op[0].value, stateNum);
+      setOptions2([...options]);
+      if (!isEmpty(options)) {
+        //setVal2(options[0].value);
+        //calc(v1, options[0].value, stateNum);
       } else {
         setVal2("");
       }
@@ -79,92 +84,89 @@ const Converter = () => {
     if (v2 != null) {
       setVal2(v2);
       /** оставляем только те что есть  */
-      op = vals
+      options = possiblePairs
         .filter(item => item.val2 === v2 || item.val1 === v2)
         .map((item, index) => ({
           key: index,
           text: item.val2 === v2 ? item.val1 : item.val2,
           value: item.val2 === v2 ? item.val1 : item.val2
         }));
-      setOptions1([...op]);
-      if (!isEmpty(op)) {
-        //setVal1(op[0].value);
-        //calc(op[0].value, v2, stateNum);
+      setOptions1([...options]);
+      if (!isEmpty(options)) {
+        //setVal1(options[0].value);
+        //calc(options[0].value, v2, stateNum);
       } else {
-        setVal2("");
+        setVal1("");
       }
     }
   };
 
   const handlerInput = num => {
     setStateNum(num);
-    calc(val1, val2, num);
+    if (num.trim() !== "") {
+      calc(val1, val2, num);
+    }
   };
   const calc = (v1, v2, num) => {
-    setOptions1(options);
-    setOptions2(options);
+    setOptions1([...allOptions]);
+    setOptions2([...allOptions]);
+    num = parseFloat(num);
+    let asset = possiblePairs.filter(
+      item => item.val1 === v1 && item.val2 === v2
+    );
+    if (!isEmpty(asset) && num) {
+      setRes(parseFloat(asset[0].quote) * num);
+      return;
+    }
+    asset = possiblePairs.filter(item => item.val1 === v2 && item.val2 === v1);
+    if (!isEmpty(asset) && num) {
+      setRes((1 / parseFloat(asset[0].quote)) * num);
+      return;
+    }
+    if (!num) {
+      setRes("ведите количество");
+      return;
+    }
 
-    let asset = vals.filter(item => item.val1 === v1 && item.val2 === v2);
-    if (!isEmpty(asset) && num != null) {
-      setRes(parseFloat(asset[0].quote) * parseFloat(num));
-      return;
-    }
-    asset = vals.filter(item => item.val1 === v2 && item.val2 === v1);
-    if (!isEmpty(asset) && num !== null) {
-      setRes((1 / parseFloat(asset[0].quote)) * parseFloat(num));
-      return;
-    }
     setRes("нет такой пары значений");
   };
 
-  useLayoutEffect(() => {
-    if (
-      context.stateUser.isAuthenticated === false ||
-      context.stateUser.isAuthenticated === null
-    ) {
-      history.push("/");
-    }
-  });
-
+  console.log("options2", options2);
   return (
-    <>
-      <Header />
+    <Body>
       {loading ? (
-        <Loader />
+        <Loader active inline="centered" />
       ) : (
-        <Container>
-          <Form>
-            <Form.Group>
-              <Form.Input
-                onChange={e => handlerInput(e.target.value)}
-                name="num"
-                type="tel"
-                value={stateNum}
-              />
-              <Form.Select
-                onChange={(e, { value }) => handlerSelect(value, null)}
-                options={options1}
-                placeholder="Choose an option"
-                selection
-                value={val1}
-              />
-              <Form.Select
-                onChange={(e, { value }) => handlerSelect(null, value)}
-                options={options2}
-                placeholder="Choose an option"
-                selection
-                value={val2}
-              />
-              <Button onClick={() => calc(val1, val2, stateNum)} primary>
-                посчитать
-              </Button>
-            </Form.Group>
-            <Divider />
-            <div>{res}</div>
-          </Form>
-        </Container>
+        <Form>
+          <Form.Group>
+            <Form.Input
+              onChange={e => handlerInput(e.target.value)}
+              name="num"
+              type="tel"
+              value={stateNum}
+              placeholder="количество"
+            />
+            <Form.Select
+              onChange={(e, { value }) => handlerSelect(value, null)}
+              options={options1}
+              placeholder="Choose an option"
+              value={val1}
+            />
+            <Form.Select
+              onChange={(e, { value }) => handlerSelect(null, value)}
+              options={options2}
+              placeholder="Choose an option"
+              value={val2}
+            />
+            <Button onClick={() => calc(val1, val2, stateNum)} primary>
+              посчитать
+            </Button>
+          </Form.Group>
+          <Divider />
+          <div>{res}</div>
+        </Form>
       )}
-    </>
+    </Body>
   );
 };
 
