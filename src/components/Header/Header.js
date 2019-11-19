@@ -23,7 +23,7 @@ const Header = props => {
         as={Link}
         to="/"
       >
-        котировки
+        Курсы валют
       </Menu.Item>
 
       <Menu.Item
@@ -33,11 +33,11 @@ const Header = props => {
         as={Link}
         to="/converter"
       >
-        конвертер
+        Конвертер
       </Menu.Item>
 
       <Menu.Item position="right" onClick={logOut}>
-        выход
+        Выход
       </Menu.Item>
     </Menu>
   );

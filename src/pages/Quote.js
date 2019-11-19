@@ -2,7 +2,7 @@ import React, { useEffect, useState, useLayoutEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Header } from "../components/index.components";
 import "../styles/Quote.css";
-import { Table, Container } from "semantic-ui-react";
+import { Table, Container, Loader } from "semantic-ui-react";
 import AuthStateGlobal from "../context/AuthStateGlobal";
 import { orderBy } from "lodash";
 
@@ -10,8 +10,10 @@ const Quote = props => {
   const context = useContext(AuthStateGlobal);
   const [stateQuotes, setStateQuotes] = useState([]);
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch("http://35.195.25.70/api.php", {
       method: "POST",
       body: JSON.stringify({ action: "quote" })
@@ -24,9 +26,11 @@ const Quote = props => {
         } else {
           console.log("RESULT NOT OK");
         }
+        setLoading(false);
       })
       .catch(err => {
         console.log("ERROR:", err);
+        setLoading(false);
       });
   }, []);
 
@@ -60,7 +64,9 @@ const Quote = props => {
   return (
     <>
       <Header />
-      {context.stateUser.isAuthenticated === true && (
+      {loading ? (
+        <Loader />
+      ) : (
         <Container>
           <Table>
             <Table.Header>
