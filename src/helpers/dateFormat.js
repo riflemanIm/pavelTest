@@ -14,6 +14,5 @@ export const formatDate = (date: Date) => {
   return format(date, DATE_FORMAT);
 };
 export const formatDateStr = date => {
-  console.log(date);
   return format(new Date(date), DATE_FORMAT);
 };

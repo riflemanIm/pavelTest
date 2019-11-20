@@ -19,9 +19,7 @@ const Body = props => {
   return (
     <Container>
       <Header />
-      <Segment attached="bottom" color="blue">
-        {props.children}
-      </Segment>
+      <Segment attached="bottom">{props.children}</Segment>
     </Container>
   );
 };
