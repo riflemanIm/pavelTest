@@ -6,7 +6,8 @@ import AuthStateGlobal from "./AuthStateGlobal";
 const AuthState = props => {
   const [stateUser, dispatch] = useReducer(authReducer, {
     isAuthenticated: null,
-    user: {}
+    user: {},
+    errMess: ""
   });
   const [showChild, setShowChild] = useState(false);
 
