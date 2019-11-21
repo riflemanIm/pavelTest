@@ -3,6 +3,7 @@ import { Header } from "../components/index.components";
 import { Container, Segment } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 import AuthStateGlobal from "../context/AuthStateGlobal";
+import "../styles/Header.css";
 
 const Body = props => {
   const history = useHistory();
@@ -19,7 +20,9 @@ const Body = props => {
   return (
     <Container>
       <Header />
-      <Segment attached="bottom">{props.children}</Segment>
+      <Segment attached="bottom" className="segment-body">
+        {props.children}
+      </Segment>
     </Container>
   );
 };

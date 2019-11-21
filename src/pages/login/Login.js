@@ -2,9 +2,10 @@ import React, { useLayoutEffect, useContext } from "react";
 import useForm from "./useForm";
 import validate from "./LoginFormValidation";
 import AuthStateGlobal from "../../context/AuthStateGlobal";
-import { Form, Button, Container, Message } from "semantic-ui-react";
+import { Form, Button, Message, Card } from "semantic-ui-react";
 import { loginUser } from "../../context/actions/authentication.action";
 import { useHistory } from "react-router-dom";
+import "../../styles/Login.css";
 
 const Login = () => {
   const context = useContext(AuthStateGlobal);
@@ -35,39 +36,47 @@ const Login = () => {
   });
 
   return (
-    <Container>
-      {context.stateUser.errMess &&
-        MessageExampleWarning(context.stateUser.errMess)}
-      <Form onSubmit={handleSubmit} noValidate>
-        <Form.Field>
-          <label>Логин</label>
-          <Form.Input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={values.email || ""}
-            required
-            error={errors.email}
-          />
-        </Form.Field>
+    <div className="login-container">
+      <Card centered>
+        <Card.Header textAlign="center" className="card-heder">
+          Вход в личный кабинет{" "}
+        </Card.Header>
+        <Card.Content extra centered>
+          <Form onSubmit={handleSubmit} noValidate>
+            <Form.Field>
+              <label>Логин</label>
+              <Form.Input
+                type="email"
+                name="email"
+                onChange={handleChange}
+                value={values.email || ""}
+                required
+                error={errors.email}
+              />
+            </Form.Field>
 
-        <Form.Field>
-          <label>Пароль</label>
-          <Form.Input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={values.password || ""}
-            required
-            error={errors.password}
-          />
-        </Form.Field>
-
-        <Button variant="primary" type="submit">
-          Вход
-        </Button>
-      </Form>
-    </Container>
+            <Form.Field>
+              <label>Пароль</label>
+              <Form.Input
+                type="password"
+                name="password"
+                onChange={handleChange}
+                value={values.password || ""}
+                required
+                error={errors.password}
+              />
+            </Form.Field>
+            <Form.Field centered>
+              <Button primary type="submit">
+                Вход
+              </Button>
+            </Form.Field>
+          </Form>
+          {context.stateUser.errMess &&
+            MessageExampleWarning(context.stateUser.errMess)}
+        </Card.Content>
+      </Card>
+    </div>
   );
 };
 

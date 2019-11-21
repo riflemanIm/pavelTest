@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Menu } from "semantic-ui-react";
-import "../../styles/Header.css";
 import { NavLink } from "react-router-dom";
 
 import AuthStateGlobal from "./../../context/AuthStateGlobal";

@@ -1,14 +1,17 @@
-.user{
-    text-align: right
+.user {
+  text-align: right;
 }
 
-.form-search{
-    width: 80% !important;
+.form-search {
+  width: 80% !important;
 }
 
-.header{
-    z-index: 1300;
-    box-shadow: 0 1px 8px rgba(0,0,0,.3);
-    min-height: 4rem;
-    background-color: #20232a;
+.header {
+  z-index: 1300;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+  min-height: 4rem;
+  background-color: #20232a;
+}
+.segment-body {
+  border-color: #2185d0 !important;
 }
