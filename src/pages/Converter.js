@@ -3,6 +3,7 @@ import { Form, Divider, Button, Loader } from "semantic-ui-react";
 import isEmpty from "../helpers/isEmpty";
 import { find } from "lodash";
 import Body from "./Body";
+import { URL_API } from "../config";
 
 const allOptions = [];
 const possiblePairs = [];
@@ -17,7 +18,7 @@ const Converter = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://35.195.25.70/api.php", {
+    fetch(URL_API, {
       method: "POST",
       body: JSON.stringify({ action: "quote" })
     })
@@ -131,7 +132,6 @@ const Converter = () => {
     setRes("нет такой пары значений");
   };
 
-  console.log("options2", options2);
   return (
     <Body>
       {loading ? (

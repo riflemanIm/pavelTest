@@ -1,4 +1,7 @@
-import { SET_CURRENT_USER } from "../actions/authentication.action";
+import {
+  SET_CURRENT_USER,
+  SET_WRONG_AUTH
+} from "../actions/authentication.action";
 import isEmpty from "../../helpers/isEmpty";
 
 export default function(state, action) {
@@ -8,6 +11,12 @@ export default function(state, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload
+      };
+    case SET_WRONG_AUTH:
+      return {
+        ...state,
+        isAuthenticated: false,
+        errMess: action.payload
       };
     default:
       return state;

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Quote.css";
-import { Table, Loader, Container, Icon } from "semantic-ui-react";
+import { Table, Loader, Container, Button } from "semantic-ui-react";
 import Body from "./Body";
 import { formatDateStr } from "../helpers/dateFormat";
 import { orderBy, find, remove, some } from "lodash";
+import { URL_API } from "../config";
 
 const transHistory = [];
 const Quote = props => {
@@ -12,7 +13,7 @@ const Quote = props => {
   const limit = 10;
   useEffect(() => {
     setLoading(true);
-    fetch("http://35.195.25.70/api.php", {
+    fetch(URL_API, {
       method: "POST",
       body: JSON.stringify({ action: "history" })
     })
@@ -34,22 +35,25 @@ const Quote = props => {
           const middle = preData.filter(
             it => it.profit >= 0 && it.profit <= 100
           );
+          /** for checking
           console.log("RESULT ", preData);
-          //console.log("< 0 ", lessThenZero);
-          //console.log("> 100 ", moreThenHundred);
-          //console.log("middle ", middle);
+          console.log("< 0 ", lessThenZero);
+          console.log("> 100 ", moreThenHundred);
+          console.log("middle ", middle);
+          */
 
           const perChunk = limit; // items per chunk
 
           transHistory.push(
             ...preData.reduce((resultArray, item, index) => {
               const chunkIndex = Math.floor(index / perChunk);
+
               if (!resultArray[chunkIndex]) {
                 resultArray[chunkIndex] = []; // start a new chunk
 
                 /** ------ начитяем десятки по условиям ----- */
                 const partLe = lessThenZero.splice(0, 2);
-                resultArray[chunkIndex].push(...partLe);
+                resultArray[chunkIndex].push(...partLe); //  < 0
 
                 const partMo = moreThenHundred
                   .filter(
@@ -60,7 +64,7 @@ const Quote = props => {
                 remove(moreThenHundred, it =>
                   find(partMo, itt => itt.id === it.id)
                 );
-                resultArray[chunkIndex].push(...partMo);
+                resultArray[chunkIndex].push(...partMo); //  > 100
 
                 let partMiddle = middle
                   .filter(
@@ -69,9 +73,9 @@ const Quote = props => {
                   )
                   .slice(0, 6);
                 remove(middle, it => find(partMiddle, itt => itt.id === it.id));
-                resultArray[chunkIndex].push(...partMiddle);
+                resultArray[chunkIndex].push(...partMiddle); // остальные
 
-                /** ----  отстатки --- */
+                /** ----  добовляем все что  осталось  --- */
                 let addCount = perChunk - resultArray[chunkIndex].length;
                 if (middle.length > 0 && addCount > 0) {
                   const removedRest = middle.splice(0, addCount);
@@ -88,6 +92,7 @@ const Quote = props => {
                   const removedLess = lessThenZero.splice(0, addCount);
                   resultArray[chunkIndex].push(...removedLess);
                 }
+
                 resultArray[chunkIndex] = orderBy(
                   resultArray[chunkIndex],
                   "finishDateDate",
@@ -99,10 +104,12 @@ const Quote = props => {
             }, [])
           );
 
+          /* for checking 
           console.log("transHistory ", transHistory);
           console.log("lessThenZero ", lessThenZero);
           console.log("moreThenHundred ", moreThenHundred);
           console.log("middle ", middle);
+          */
         } else {
           console.log("RESULT NOT OK");
         }
@@ -147,7 +154,6 @@ const Quote = props => {
                       positive={item.profit > 100}
                       negative={item.profit < 0}
                     >
-                      <Table.Cell>{item.id}</Table.Cell>
                       <Table.Cell>{item.asset}</Table.Cell>
                       <Table.Cell>{formatDateStr(item.startDate)}</Table.Cell>
                       <Table.Cell>{item.startQuote}</Table.Cell>
@@ -160,9 +166,18 @@ const Quote = props => {
             </Table.Body>
           </Table>
           <Container textAlign="center">
-            <Icon name="arrow left" onClick={prevPage} disabled={page === 0} />
+            <Button
+              basic
+              circular
+              icon="arrow left"
+              onClick={prevPage}
+              disabled={page === 0}
+            />
             {page + 1} / {transHistory.length}{" "}
-            <Icon
+            <Button
+              basic
+              circular
+              icon="arrow right"
               name="arrow right"
               onClick={nextPage}
               disabled={page === limit - 1}

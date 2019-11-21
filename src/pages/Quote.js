@@ -4,6 +4,7 @@ import { Table, Loader, Icon } from "semantic-ui-react";
 import { orderBy } from "lodash";
 import Body from "./Body";
 import { formatDateStr } from "../helpers/dateFormat";
+import { URL_API } from "../config";
 
 const Quote = props => {
   const [stateQuotes, setStateQuotes] = useState([]);
@@ -11,7 +12,7 @@ const Quote = props => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://35.195.25.70/api.php", {
+    fetch(URL_API, {
       method: "POST",
       body: JSON.stringify({ action: "quote" })
     })

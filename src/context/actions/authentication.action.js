@@ -1,7 +1,10 @@
+import { URL_API } from "../../config";
+
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const SET_WRONG_AUTH = "SET_WRONG_AUTH";
 
 export const loginUser = (user, dispatch) => {
-  fetch("http://35.195.25.70/api.php", {
+  fetch(URL_API, {
     method: "POST",
     body: JSON.stringify(user)
   })
@@ -11,7 +14,8 @@ export const loginUser = (user, dispatch) => {
         const token = 12345; // must be arrived from server
         localStorage.setItem("token", token);
         dispatch(setCurrentUser(token));
-      } else {
+      } else if (data.result === "error") {
+        dispatch(setWrongAuth(data.error));
         logoutUser(dispatch);
       }
     })
@@ -20,10 +24,17 @@ export const loginUser = (user, dispatch) => {
     });
 };
 
-export const setCurrentUser = decoded => {
+export const setCurrentUser = token => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: token
+  };
+};
+
+export const setWrongAuth = err => {
+  return {
+    type: SET_WRONG_AUTH,
+    payload: err
   };
 };
 
