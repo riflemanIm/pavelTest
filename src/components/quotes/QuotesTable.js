@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Table } from "semantic-ui-react";
 import { orderBy } from "lodash";
-import QuoteItem from "./QuoteItem";
+import QuoteRow from "./QuoteRow";
 import PropTypes from "prop-types";
 
 const QuotesTable = ({ data }) => {
@@ -32,7 +32,7 @@ const QuotesTable = ({ data }) => {
       </Table.Header>
       <Table.Body>
         {stateQuotes.map((item, index) => (
-          <QuoteItem
+          <QuoteRow
             key={index}
             index={index}
             item={item}
@@ -44,7 +44,7 @@ const QuotesTable = ({ data }) => {
   );
 };
 QuotesTable.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array.isRequired
 };
 
 export default QuotesTable;

@@ -3,7 +3,7 @@ import { Table, Icon } from "semantic-ui-react";
 import { formatDateStr } from "../../helpers/dateFormat";
 import PropTypes from "prop-types";
 
-const QuoteItem = ({ item, index, onClick }) => {
+const QuoteRow = ({ item, index, onClick }) => {
   return (
     <Table.Row onClick={() => onClick(index)}>
       <Table.Cell>
@@ -15,11 +15,14 @@ const QuoteItem = ({ item, index, onClick }) => {
     </Table.Row>
   );
 };
-QuoteItem.propTypes = {
+
+QuoteRow.propTypes = {
   item: PropTypes.shape({
-    fav: PropTypes.bool,
-    asset: PropTypes.string,
-    quote: PropTypes.string
-  })
+    fav: PropTypes.bool.isRequired,
+    asset: PropTypes.string.isRequired,
+    quote: PropTypes.string.isRequired
+  }).isRequired,
+  onClick: PropTypes.func.isRequired
 };
-export default QuoteItem;
+
+export default QuoteRow;
