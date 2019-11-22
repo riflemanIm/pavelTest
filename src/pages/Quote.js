@@ -5,7 +5,7 @@ import { URL_API } from "../config";
 import QuotesTable from "../components/quotes/QuotesTable";
 import "../styles/Quote.css";
 
-const result = [];
+let result = [];
 const Quote = props => {
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +19,7 @@ const Quote = props => {
       .then(data => {
         if (data.result === "ok") {
           console.log("RESULT ", data);
-          result.push(...data.assets.map(item => ({ ...item, fav: false })));
+          result = data.assets.map(item => ({ ...item, fav: false }));
         } else {
           console.log("RESULT NOT OK");
         }
