@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Form, Divider, Button } from "semantic-ui-react";
+import { Form, Divider, Button, Header } from "semantic-ui-react";
 import isEmpty from "../../helpers/isEmpty";
 import PropTypes from "prop-types";
+import "../../styles/ConverterForm.css";
 
 const ConverterForm = ({ allOptions, possiblePairs }) => {
   const [stateNum, setStateNum] = useState(1);
@@ -67,12 +68,12 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
       item => item.val1 === v1 && item.val2 === v2
     );
     if (!isEmpty(asset) && num) {
-      setRes(parseFloat(asset[0].quote) * num);
+      setRes((parseFloat(asset[0].quote) * num).toFixed(3));
       return;
     }
     asset = possiblePairs.filter(item => item.val1 === v2 && item.val2 === v1);
     if (!isEmpty(asset) && num) {
-      setRes((1 / parseFloat(asset[0].quote)) * num);
+      setRes(((1 / parseFloat(asset[0].quote)) * num).toFixed(3));
       return;
     }
     if (!num) {
@@ -87,6 +88,7 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
     <Form>
       <Form.Group>
         <Form.Input
+          className="numInput"
           onChange={e => handlerInput(e.target.value)}
           name="num"
           type="tel"
@@ -103,12 +105,14 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
           options={options2}
           value={val2}
         />
-        <Button onClick={() => calc(val1, val2, stateNum)} primary>
-          посчитать
-        </Button>
+        <Form.Field>
+          <Button onClick={() => calc(val1, val2, stateNum)} primary>
+            Рассчитать
+          </Button>
+        </Form.Field>
       </Form.Group>
       <Divider />
-      <div>{res}</div>
+      {res && <Header size="small">Итого: {res}</Header>}
     </Form>
   );
 };

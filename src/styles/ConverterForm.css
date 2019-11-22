@@ -1,0 +1,7 @@
+.ui.form .fields .field .ui.input input {
+  text-align: right !important;
+  width: 100px !important;
+}
+.ui.form .fields > .field {
+  padding-bottom: 0.5em;
+}
