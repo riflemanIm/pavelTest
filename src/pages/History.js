@@ -6,9 +6,15 @@ import Body from "./Body";
 import HistoryTable from "../components/history/HistoryTable";
 
 let transHistory = [];
+const limit = 10;
+const profitMax = 100;
+const numNegativeRows = 2;
+const numPositiveRows = 2;
+const numRestRows = limit - numNegativeRows - numPositiveRows;
+
 const History = () => {
   const [loading, setLoading] = useState(false);
-  const limit = 10;
+
   useEffect(() => {
     setLoading(true);
     fetch(URL_API, {
@@ -29,9 +35,9 @@ const History = () => {
           );
 
           const lessThenZero = preData.filter(it => it.profit < 0);
-          const moreThenHundred = preData.filter(it => it.profit > 100);
+          const moreThenHundred = preData.filter(it => it.profit > profitMax);
           const middle = preData.filter(
-            it => it.profit >= 0 && it.profit <= 100
+            it => it.profit >= 0 && it.profit <= profitMax
           );
           /** for checking
           console.log("RESULT ", preData);
@@ -49,7 +55,7 @@ const History = () => {
               resultArray[chunkIndex] = []; // start a new chunk
 
               /** ------ начитяем десятки по условиям ----- */
-              const partLe = lessThenZero.splice(0, 2);
+              const partLe = lessThenZero.splice(0, numNegativeRows);
               resultArray[chunkIndex].push(...partLe); //  < 0
 
               const partMo = moreThenHundred
@@ -57,7 +63,7 @@ const History = () => {
                   (it, inx) =>
                     !some(resultArray[chunkIndex], { asset: it.asset })
                 )
-                .slice(0, 2);
+                .slice(0, numPositiveRows);
               remove(moreThenHundred, it =>
                 find(partMo, itt => itt.id === it.id)
               );
@@ -68,7 +74,7 @@ const History = () => {
                   (it, inx) =>
                     inx <= !some(resultArray[chunkIndex], { asset: it.asset })
                 )
-                .slice(0, 6);
+                .slice(0, numRestRows);
               remove(middle, it => find(partMiddle, itt => itt.id === it.id));
               resultArray[chunkIndex].push(...partMiddle); // остальные
 
