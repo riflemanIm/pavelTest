@@ -21,9 +21,7 @@ const Body = props => {
     <div className="container-body">
       <Container>
         <HeaderMenu />
-        <Segment attached="bottom" className="segment-body">
-          {props.children}
-        </Segment>
+        <Segment attached="bottom">{props.children}</Segment>
       </Container>
     </div>
   );

@@ -1,11 +1,26 @@
 .container-body {
   margin-top: 50px;
+  min-width: 380px !important;
 }
-
-.segment-body {
+/* ------------ custom menu ------------------*/
+.ui.attached.tabular.menu {
   border-color: #2185d0 !important;
 }
-/*
+.ui.tabular.menu .item {
+  border-color: #eee !important;
+  border-radius: 1rem 1rem 0 0 !important;
+}
+.ui.tabular.menu .active.item {
+  border-radius: 1rem 1rem 0 0 !important;
+}
+
+/* ------------ custom segment ------------------*/
+.ui.attached.segment {
+  border-color: #2185d0 !important;
+  border-radius: 0 0 1rem 1rem !important;
+}
+
+/* ------------ custom table ------------------*/
 .ui.table,
 .ui.table thead {
   border: 0 !important;
@@ -15,8 +30,6 @@
 }
 .ui.table thead th {
   border: 0;
-  background-color: #2185d0 !important;
+
   border-radius: 0 !important;
-  color: #fff !important;
 }
-*/

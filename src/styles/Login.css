@@ -7,9 +7,12 @@
 
 .card-heder {
   display: flex;
-  color: white;
+
   align-items: center;
   justify-content: center;
-  background-color: #19227d;
+
   padding: 10px;
+}
+.ui.card {
+  border-radius: 1rem;
 }
