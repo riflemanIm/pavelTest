@@ -1,12 +1,15 @@
-.login-container {
+.container-login {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 70vh;
 }
+
 .card-heder {
   display: flex;
   color: white;
   align-items: center;
   justify-content: center;
+  background-color: #19227d;
+  padding: 10px;
 }

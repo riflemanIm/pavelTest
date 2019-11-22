@@ -5,6 +5,7 @@ import AuthStateGlobal from "../../context/AuthStateGlobal";
 import { Form, Button, Message, Card } from "semantic-ui-react";
 import { loginUser } from "../../context/actions/authentication.action";
 import { useHistory } from "react-router-dom";
+import "../../styles/Body.css";
 import "../../styles/Login.css";
 
 const Login = () => {
@@ -22,7 +23,7 @@ const Login = () => {
     };
     loginUser(user, context.dispatch);
   }
-  const MessageExampleWarning = text => (
+  const MessageWarning = text => (
     <Message warning>
       <p>{text}</p>
     </Message>
@@ -36,10 +37,10 @@ const Login = () => {
   });
 
   return (
-    <div className="login-container">
+    <div className="container-login">
       <Card centered>
         <Card.Header textAlign="center" className="card-heder">
-          Вход в личный кабинет{" "}
+          Вход в личный кабинет
         </Card.Header>
         <Card.Content extra centered>
           <Form onSubmit={handleSubmit} noValidate>
@@ -73,7 +74,7 @@ const Login = () => {
             </Form.Field>
           </Form>
           {context.stateUser.errMess &&
-            MessageExampleWarning(context.stateUser.errMess)}
+            MessageWarning(context.stateUser.errMess)}
         </Card.Content>
       </Card>
     </div>

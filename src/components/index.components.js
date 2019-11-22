@@ -1,3 +1,3 @@
-import Header from "./Header/Header";
+import HeaderMenu from "./header/HeaderMenu";
 
-export { Header };
+export { HeaderMenu };

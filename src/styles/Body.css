@@ -1,0 +1,22 @@
+.container-body {
+  margin-top: 50px;
+}
+
+.segment-body {
+  border-color: #2185d0 !important;
+}
+/*
+.ui.table,
+.ui.table thead {
+  border: 0 !important;
+}
+.ui.table tr {
+  border: 0 !important;
+}
+.ui.table thead th {
+  border: 0;
+  background-color: #2185d0 !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+}
+*/
