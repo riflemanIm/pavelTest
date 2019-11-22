@@ -5,7 +5,6 @@ import AuthStateGlobal from "../../context/AuthStateGlobal";
 import { Form, Button, Message, Card } from "semantic-ui-react";
 import { loginUser } from "../../context/actions/authentication.action";
 import { useHistory } from "react-router-dom";
-import "../../styles/Body.css";
 import "../../styles/Login.css";
 
 const Login = () => {

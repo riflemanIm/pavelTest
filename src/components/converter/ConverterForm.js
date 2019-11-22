@@ -96,13 +96,11 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
         <Form.Select
           onChange={(e, { value }) => handlerSelect(value, null)}
           options={options1}
-          placeholder="Choose an option"
           value={val1}
         />
         <Form.Select
           onChange={(e, { value }) => handlerSelect(null, value)}
           options={options2}
-          placeholder="Choose an option"
           value={val2}
         />
         <Button onClick={() => calc(val1, val2, stateNum)} primary>
