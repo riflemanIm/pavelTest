@@ -85,35 +85,45 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
   };
 
   return (
-    <Form>
-      <Form.Group>
-        <Form.Input
-          className="numInput"
-          onChange={e => handlerInput(e.target.value)}
-          name="num"
-          type="tel"
-          value={stateNum}
-          placeholder="количество"
-        />
-        <Form.Select
-          onChange={(e, { value }) => handlerSelect(value, null)}
-          options={options1}
-          value={val1}
-        />
-        <Form.Select
-          onChange={(e, { value }) => handlerSelect(null, value)}
-          options={options2}
-          value={val2}
-        />
-        <Form.Field>
-          <Button onClick={() => calc(val1, val2, stateNum)} primary>
-            Рассчитать
-          </Button>
-        </Form.Field>
-      </Form.Group>
-      <Divider />
-      {res && <Header size="small">Итого: {res}</Header>}
-    </Form>
+    <>
+      <Header className="header-main">Конвертер валют</Header>
+      <Form>
+        <Form.Group>
+          <Form.Input
+            className="numInput"
+            onChange={e => handlerInput(e.target.value)}
+            name="num"
+            type="tel"
+            value={stateNum}
+            placeholder="количество"
+          />
+          <Form.Select
+            onChange={(e, { value }) => handlerSelect(value, null)}
+            options={options1}
+            value={val1}
+          />
+          <Form.Select
+            onChange={(e, { value }) => handlerSelect(null, value)}
+            options={options2}
+            value={val2}
+          />
+          <Form.Field>
+            <Button onClick={() => calc(val1, val2, stateNum)} primary>
+              Рассчитать
+            </Button>
+          </Form.Field>
+        </Form.Group>
+        <Divider />
+        {res && (
+          <>
+            Итого:{" "}
+            <Header size="medium" className="itogo-res">
+              {res}
+            </Header>
+          </>
+        )}
+      </Form>
+    </>
   );
 };
 
