@@ -7,7 +7,11 @@ const QuoteRow = ({ item, index, onClick }) => {
   return (
     <Table.Row onClick={() => onClick(index)}>
       <Table.Cell>
-        {item.fav ? <Icon name="star" /> : <Icon name="star outline" />}
+        {item.fav ? (
+          <Icon name="star" className="star" />
+        ) : (
+          <Icon name="star outline" className="star" />
+        )}
       </Table.Cell>
       <Table.Cell>{item.asset}</Table.Cell>
       <Table.Cell>{formatDateStr(item.startDate)}</Table.Cell>

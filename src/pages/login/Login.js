@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useContext } from "react";
 import useForm from "./useForm";
 import validate from "./LoginFormValidation";
 import AuthStateGlobal from "../../context/AuthStateGlobal";
-import { Form, Button, Message, Card } from "semantic-ui-react";
+import { Form, Button, Card } from "semantic-ui-react";
 import { loginUser } from "../../context/actions/authentication.action";
 import { useHistory } from "react-router-dom";
 import "../../styles/Login.css";
@@ -22,10 +22,11 @@ const Login = () => {
     };
     loginUser(user, context.dispatch);
   }
+
   const MessageWarning = text => (
-    <Message warning>
+    <div className="message-warning">
       <p>{text}</p>
-    </Message>
+    </div>
   );
 
   const history = useHistory();
@@ -66,9 +67,12 @@ const Login = () => {
                 error={errors.password}
               />
             </Form.Field>
-            <Form.Field centered>
+            <Form.Field className="contButton">
               <Button primary type="submit">
                 Вход
+                <span style={{ fontSize: "30px", lineHeight: "1px" }}>
+                  &#8594;
+                </span>
               </Button>
             </Form.Field>
           </Form>

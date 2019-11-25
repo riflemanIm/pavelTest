@@ -10,10 +10,10 @@ body {
   border: 0;
   border-top: 60px solid #19227d;
   margin: 0;
-  border-radius: 0 10px 10px 10px !important;
+  border-radius: 0 20px 20px 20px !important;
   width: auto !important;
 }
-
+/* ------------ nav ------------------*/
 .topnav {
   overflow: hidden;
   margin: 0;
@@ -33,10 +33,10 @@ body {
   font-size: 17px;
 }
 .topnav a:first-child {
-  border-radius: 10px 0 0 0;
+  border-radius: 20px 0 0 0;
 }
 .topnav a:nth-last-child(2) {
-  border-radius: 0 10px 0 0;
+  border-radius: 0 20px 0 0;
   border-right: 2px solid #19227d;
 }
 
@@ -71,7 +71,7 @@ body {
   background: none !important;
   color: #fff;
 }
-
+/* ------------ header ------------------*/
 .ui.header.header-main {
   margin-top: 10px;
   color: #fff !important;
@@ -80,11 +80,17 @@ body {
 .ui.header.itogo-res {
   margin-top: 10px;
 }
+/* ------------ button ------------------*/
+.ui.button,
+.ui.buttons .button,
+.ui.buttons {
+  font-size: 1.1rem;
+}
 .ui.basic.primary.button,
 .ui.basic.primary.buttons .button {
   box-shadow: none !important;
   color: #19227d !important;
-  border-radius: 15px !important;
+  border-radius: 20px !important;
   border: 2px solid #19227d !important;
 }
 .ui.basic.primary.button:hover {
@@ -92,6 +98,37 @@ body {
   background-color: #ddd !important;
   color: black !important;
 }
+.ui.primary.button,
+.ui.primary.buttons .button {
+  background-color: #19227d;
+  color: #fff;
+  text-shadow: none;
+  background-image: none;
+  border-radius: 20px !important;
+}
+
+ui.form input:not([type]),
+.ui.form input[type="date"],
+.ui.form input[type="datetime-local"],
+.ui.form input[type="email"],
+.ui.form input[type="file"],
+.ui.form input[type="number"],
+.ui.form input[type="password"],
+.ui.form input[type="search"],
+.ui.form input[type="tel"],
+.ui.form input[type="text"],
+.ui.form input[type="time"],
+.ui.form input[type="url"],
+.ui.dropdown,
+.ui.selection.active.dropdown,
+.ui.selection.dropdown:focus,
+.ui.selection.active.dropdown,
+.ui.selection.dropdown:hover {
+  border: 2px solid #19227d !important;
+  box-shadow: none !important;
+}
+
+/* ------------ media ------------------*/
 @media screen and (max-width: 767px) {
   .up {
     position: block;
@@ -118,7 +155,7 @@ body {
   .topnav a.icon-item {
     float: right;
     display: block;
-    border-radius: 10px 10px 0 0;
+    border-radius: 20px 20px 0 0;
   }
   .topnav.responsive {
     position: relative;
@@ -127,7 +164,7 @@ body {
     position: absolute;
     right: 0;
     top: 0;
-    border-radius: 0 10px 0 0;
+    border-radius: 0 20px 0 0;
   }
   .topnav.responsive a {
     float: none;
@@ -135,7 +172,7 @@ body {
     text-align: left;
   }
   .topnav.responsive a:first-child {
-    border-radius: 10px 10px 0 0;
+    border-radius: 20px 20px 0 0;
   }
 
   .topnav.responsive a:nth-last-child(2) {
@@ -143,7 +180,7 @@ body {
   }
 
   .ui.attached.segment {
-    border-radius: 0 0 10px 10px !important;
+    border-radius: 0 0 20px 20px !important;
     border-top: 2px solid #19227d;
   }
 }
