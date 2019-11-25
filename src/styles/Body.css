@@ -123,11 +123,16 @@ ui.form input:not([type]),
 .ui.selection.active.dropdown,
 .ui.selection.dropdown:focus,
 .ui.selection.active.dropdown,
-.ui.selection.dropdown:hover {
+.ui.selection.dropdown:hover,
+.ui.selection.active.dropdown .menu {
   border: 2px solid #19227d !important;
   box-shadow: none !important;
 }
-
+.ui.selection.active.dropdown .menu {
+  margin: 0 -2px;
+  min-width: calc(100% + 4px);
+  width: calc(100% + 4px);
+}
 /* ------------ media ------------------*/
 @media screen and (max-width: 767px) {
   .up {
