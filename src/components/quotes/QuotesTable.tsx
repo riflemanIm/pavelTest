@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Table } from "semantic-ui-react";
 import { orderBy } from "lodash";
-import QuoteRow from "./QuoteRow";
+import QuoteRow, { IQuote } from "./QuoteRow";
 import PropTypes from "prop-types";
 
-const QuotesTable = ({ data }) => {
+interface IProps {
+  data: IQuote[];
+}
+const QuotesTable = (props: IProps) => {
+  const { data } = props;
   const [stateQuotes, setStateQuotes] = useState(data);
 
-  const handlerFav = index => {
+  const handlerFav = (index: number) => {
     setStateQuotes(
       orderBy(
         [

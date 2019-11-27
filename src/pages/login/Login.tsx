@@ -20,29 +20,31 @@ const Login = () => {
       password: values.password,
       action: "login"
     };
+
     loginUser(user, context.dispatch);
   }
 
-  const MessageWarning = text => (
+  const MessageWarning = (text: string) => (
     <div className="message-warning">
       <p>{text}</p>
     </div>
   );
 
   const history = useHistory();
+
   useLayoutEffect(() => {
-    if (context.stateUser.isAuthenticated === true) {
+    if (context.isAuthenticated === true) {
       history.push("/");
     }
   });
 
   return (
     <div className="container-login">
-      <Card centered>
+      <Card centered={true}>
         <Card.Header textAlign="center" className="card-heder">
           Вход в личный кабинет
         </Card.Header>
-        <Card.Content extra centered>
+        <Card.Content extra centered="true">
           <Form onSubmit={handleSubmit} noValidate>
             <Form.Field>
               <label>Логин</label>
@@ -50,9 +52,9 @@ const Login = () => {
                 type="email"
                 name="email"
                 onChange={handleChange}
-                value={values.email || ""}
+                value={values.email}
                 required
-                error={errors.email}
+                error={errors.email !== "" && errors.email}
               />
             </Form.Field>
 
@@ -62,9 +64,9 @@ const Login = () => {
                 type="password"
                 name="password"
                 onChange={handleChange}
-                value={values.password || ""}
+                value={values.password}
                 required
-                error={errors.password}
+                error={errors.password !== "" && errors.password}
               />
             </Form.Field>
             <Form.Field className="contButton">
@@ -76,8 +78,7 @@ const Login = () => {
               </Button>
             </Form.Field>
           </Form>
-          {context.stateUser.errMess &&
-            MessageWarning(context.stateUser.errMess)}
+          {context.errMess && MessageWarning(context.errMess)}
         </Card.Content>
       </Card>
     </div>

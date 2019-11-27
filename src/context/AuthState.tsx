@@ -1,14 +1,14 @@
 import React, { useReducer, useEffect, useState } from "react";
-import authReducer from "./reducers/authentication.reducer";
+import reducer, { initialState } from "./reducers/authentication.reducer";
 import { setCurrentUser } from "./actions/authentication.action";
 import AuthStateGlobal from "./AuthStateGlobal";
 
-const AuthState = props => {
-  const [stateUser, dispatch] = useReducer(authReducer, {
-    isAuthenticated: null,
-    user: {},
-    errMess: ""
-  });
+export interface AuthStateType {
+  children: [JSX.Element] | JSX.Element;
+}
+
+const AuthState = (props: AuthStateType) => {
+  const [stateUser, dispatch] = useReducer(reducer, initialState);
   const [showChild, setShowChild] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const AuthState = props => {
     return (
       <AuthStateGlobal.Provider
         value={{
-          stateUser,
+          ...stateUser,
           dispatch
         }}
       >

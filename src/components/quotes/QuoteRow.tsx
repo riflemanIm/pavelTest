@@ -3,7 +3,21 @@ import { Table, Icon } from "semantic-ui-react";
 import { formatDateStr } from "../../helpers/dateFormat";
 import PropTypes from "prop-types";
 
-const QuoteRow = ({ item, index, onClick }) => {
+export interface IQuote {
+  asset: string;
+  quote: string;
+  startDate: string;
+  fav: boolean;
+}
+
+interface IProps {
+  item: IQuote;
+  index: number;
+  onClick: (index: number) => void;
+}
+
+const QuoteRow = (props: IProps) => {
+  const { item, index, onClick } = props;
   return (
     <Table.Row onClick={() => onClick(index)}>
       <Table.Cell>

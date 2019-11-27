@@ -1,6 +1,5 @@
 import React, { useLayoutEffect, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-//import { HeaderMenu } from "../components/index.components";
 import { Container, Segment, Icon, Button } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { logoutUser } from "../context/actions/authentication.action";
@@ -22,10 +21,7 @@ const Body = props => {
   };
 
   useLayoutEffect(() => {
-    if (
-      context.stateUser.isAuthenticated === false ||
-      context.stateUser.isAuthenticated === null
-    ) {
+    if (context.isAuthenticated === false || context.isAuthenticated === null) {
       history.push("/login");
     }
   });

@@ -3,10 +3,11 @@ import { Loader } from "semantic-ui-react";
 import Body from "./Body";
 import { URL_API } from "../config";
 import QuotesTable from "../components/quotes/QuotesTable";
+import { IQuote } from "../components/quotes/QuoteRow";
 import "../styles/Quote.css";
 
-let result = [];
-const Quote = props => {
+let result: [] = [];
+const Quote = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -18,8 +19,7 @@ const Quote = props => {
       .then(res => res.json())
       .then(data => {
         if (data.result === "ok") {
-          console.log("RESULT ", data);
-          result = data.assets.map(item => ({ ...item, fav: false }));
+          result = data.assets.map((item: IQuote) => ({ ...item, fav: false }));
         } else {
           console.log("RESULT NOT OK");
         }

@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom"; //rutas
-import AuthState from "./context/AuthState"; // estado global usando context api
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import AuthState from "./context/AuthState";
 import "semantic-ui-css/semantic.min.css";
 
 const Converter = lazy(() => import("./pages/Converter"));

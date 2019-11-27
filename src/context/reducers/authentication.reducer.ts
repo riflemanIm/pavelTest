@@ -4,7 +4,25 @@ import {
 } from "../actions/authentication.action";
 import isEmpty from "../../helpers/isEmpty";
 
-export default function(state, action) {
+export const initialState = {
+  isAuthenticated: null,
+  user: "",
+  errMess: ""
+};
+
+export interface IAction {
+  type: string;
+  payload: string;
+}
+
+export interface IState {
+  isAuthenticated: boolean | null;
+  user: string;
+  errMess: string;
+  dispatch?: React.Dispatch<IAction>;
+}
+
+export default function(state: IState = initialState, action: IAction) {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
