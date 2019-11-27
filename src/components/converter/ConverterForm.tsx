@@ -4,15 +4,33 @@ import isEmpty from "../../helpers/isEmpty";
 import PropTypes from "prop-types";
 import "../../styles/ConverterForm.css";
 
-const ConverterForm = ({ allOptions, possiblePairs }) => {
-  const [stateNum, setStateNum] = useState(1);
+export interface IOption {
+  key: string;
+  value: string;
+  text: string;
+}
+
+export interface IPair {
+  val1: string;
+  val2: string;
+  quote: string;
+}
+
+interface IProps {
+  allOptions: IOption[];
+  possiblePairs: IPair[];
+}
+
+const ConverterForm = (props: IProps) => {
+  const { allOptions, possiblePairs } = props;
+  const [stateNum, setStateNum] = useState("1");
   const [val1, setVal1] = useState("USD");
   const [val2, setVal2] = useState("RUB");
   const [res, setRes] = useState("");
   const [options1, setOptions1] = useState(allOptions);
   const [options2, setOptions2] = useState(allOptions);
 
-  const handlerSelect = (v1, v2) => {
+  const handlerSelect = (v1: any, v2: any) => {
     let options = [];
     setRes("");
     if (v1 != null) {
@@ -21,7 +39,7 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
       options = possiblePairs
         .filter(item => item.val1 === v1 || item.val2 === v1)
         .map((item, index) => ({
-          key: index,
+          key: `${index}`,
           text: item.val1 === v1 ? item.val2 : item.val1,
           value: item.val1 === v1 ? item.val2 : item.val1
         }));
@@ -39,7 +57,7 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
       options = possiblePairs
         .filter(item => item.val2 === v2 || item.val1 === v2)
         .map((item, index) => ({
-          key: index,
+          key: `${index}`,
           text: item.val2 === v2 ? item.val1 : item.val2,
           value: item.val2 === v2 ? item.val1 : item.val2
         }));
@@ -53,17 +71,17 @@ const ConverterForm = ({ allOptions, possiblePairs }) => {
     }
   };
 
-  const handlerInput = num => {
+  const handlerInput = (num: string) => {
     setStateNum(num);
     if (num.trim() !== "") {
       calc(val1, val2, num);
     }
   };
 
-  const calc = (v1, v2, num) => {
+  const calc = (v1: string, v2: string, numSrt: string) => {
     setOptions1([...allOptions]);
     setOptions2([...allOptions]);
-    num = parseFloat(num);
+    const num = parseFloat(numSrt);
     let asset = possiblePairs.filter(
       item => item.val1 === v1 && item.val2 === v2
     );

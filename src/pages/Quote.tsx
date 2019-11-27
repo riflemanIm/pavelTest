@@ -6,7 +6,7 @@ import QuotesTable from "../components/quotes/QuotesTable";
 import { IQuote } from "../components/quotes/QuoteRow";
 import "../styles/Quote.css";
 
-let result: [] = [];
+let result: IQuote[] = [];
 const Quote = () => {
   const [loading, setLoading] = useState(false);
 

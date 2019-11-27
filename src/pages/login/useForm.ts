@@ -12,17 +12,17 @@ const useForm = (callback: Function, validate: Function) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errors]);
 
-  const handleSubmit = (event: any) => {
-    if (event) event.preventDefault();
+  const handleSubmit = (e: React.FormEvent<EventTarget>): void => {
+    if (e) e.preventDefault();
     setErrors(validate(values));
     setIsSubmitting(true);
   };
 
-  const handleChange = (event: any) => {
-    event.persist();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.persist();
     setValues(values => ({
       ...values,
-      [event.target.name]: event.target.value
+      [e.target.name]: e.target.value
     }));
   };
 

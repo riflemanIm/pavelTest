@@ -4,10 +4,14 @@ import isEmpty from "../helpers/isEmpty";
 import { find } from "lodash";
 import Body from "./Body";
 import { URL_API } from "../config";
-import ConverterForm from "../components/converter/ConverterForm";
+import ConverterForm, {
+  IOption,
+  IPair
+} from "../components/converter/ConverterForm";
+import { IQuote } from "../components/quotes/QuoteRow";
 
-const allOptions = [];
-const possiblePairs = [];
+const allOptions: IOption[] = [];
+const possiblePairs: IPair[] = [];
 
 const Converter = () => {
   const [loading, setLoading] = useState(false);
@@ -21,9 +25,9 @@ const Converter = () => {
       .then(res => res.json())
       .then(data => {
         if (data.result === "ok") {
-          data.assets.forEach((item, i1) => {
+          data.assets.forEach((item: IQuote, i1: number) => {
             const assets = item.asset.split("/");
-            assets.forEach((it, i2) => {
+            assets.forEach((it: string, i2: number) => {
               if (isEmpty(find(allOptions, { value: it })))
                 allOptions.push({
                   key: `${i1}${i2}`,

@@ -6,7 +6,11 @@ import { logoutUser } from "../context/actions/authentication.action";
 import AuthStateGlobal from "../context/AuthStateGlobal";
 import "../styles/Body.css";
 
-const Body = props => {
+export interface IProps {
+  children: [JSX.Element] | JSX.Element;
+}
+
+const Body = (props: IProps) => {
   const history = useHistory();
   const context = useContext(AuthStateGlobal);
   const [isResp, setIsResp] = useState(false);
@@ -15,7 +19,7 @@ const Body = props => {
     logoutUser(context.dispatch);
   };
 
-  const handleClick = e => {
+  const handleClick = (e: React.FormEvent<EventTarget>): void => {
     e.preventDefault();
     setIsResp(!isResp);
   };

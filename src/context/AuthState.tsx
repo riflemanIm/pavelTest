@@ -3,11 +3,11 @@ import reducer, { initialState } from "./reducers/authentication.reducer";
 import { setCurrentUser } from "./actions/authentication.action";
 import AuthStateGlobal from "./AuthStateGlobal";
 
-export interface AuthStateType {
+export interface IProps {
   children: [JSX.Element] | JSX.Element;
 }
 
-const AuthState = (props: AuthStateType) => {
+const AuthState = (props: IProps) => {
   const [stateUser, dispatch] = useReducer(reducer, initialState);
   const [showChild, setShowChild] = useState(false);
 
