@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { Table, Container, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import HistoryRow from "./HistoryRow";
+import HistoryRow, { IHistoryRow } from "./HistoryRow";
+import isEmpty from "../../helpers/isEmpty";
 
-const HistoryTable = ({ data, limit }) => {
+interface IProps {
+  data: IHistoryRow[][];
+  limit: number;
+}
+
+const HistoryTable = (props: IProps) => {
+  const { data, limit } = props;
   const [page, setPage] = useState(0);
+
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -26,7 +34,7 @@ const HistoryTable = ({ data, limit }) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.length > 0 &&
+          {!isEmpty(data[page]) &&
             data[page].map((item, index) => {
               return <HistoryRow key={index} item={item} />;
             })}

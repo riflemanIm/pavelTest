@@ -30,7 +30,7 @@ const ConverterForm = (props: IProps) => {
   const [options1, setOptions1] = useState(allOptions);
   const [options2, setOptions2] = useState(allOptions);
 
-  const handlerSelect = (v1: any, v2: any) => {
+  const handlerSelect = (v1: any, v2: any): void => {
     let options = [];
     setRes("");
     if (v1 != null) {
@@ -71,14 +71,14 @@ const ConverterForm = (props: IProps) => {
     }
   };
 
-  const handlerInput = (num: string) => {
+  const handlerInput = (num: string): void => {
     setStateNum(num);
     if (num.trim() !== "") {
       calc(val1, val2, num);
     }
   };
 
-  const calc = (v1: string, v2: string, numSrt: string) => {
+  const calc = (v1: string, v2: string, numSrt: string): void => {
     setOptions1([...allOptions]);
     setOptions2([...allOptions]);
     const num = parseFloat(numSrt);

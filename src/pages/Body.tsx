@@ -19,7 +19,7 @@ const Body = (props: IProps) => {
     logoutUser(context.dispatch);
   };
 
-  const handleClick = (e: React.FormEvent<EventTarget>): void => {
+  const handleClick = (e: React.SyntheticEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
     setIsResp(!isResp);
   };

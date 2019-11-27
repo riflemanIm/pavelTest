@@ -3,9 +3,25 @@ import { Table } from "semantic-ui-react";
 import { formatDateStr } from "../../helpers/dateFormat";
 import PropTypes from "prop-types";
 
-const HistoryRow = ({ item }) => {
+export interface IHistoryRow {
+  asset: string;
+  finishDate: string;
+  finishQuote: string;
+  profit: string;
+  startDate: string;
+  startQuote: string;
+}
+interface IProps {
+  item: IHistoryRow;
+}
+
+const HistoryRow = (props: IProps) => {
+  const { item } = props;
   return (
-    <Table.Row positive={item.profit > 100} negative={item.profit < 0}>
+    <Table.Row
+      positive={parseInt(item.profit) > 100}
+      negative={parseInt(item.profit) < 0}
+    >
       <Table.Cell>{item.asset}</Table.Cell>
       <Table.Cell>{formatDateStr(item.startDate)}</Table.Cell>
       <Table.Cell>{item.startQuote}</Table.Cell>

@@ -1,4 +1,4 @@
-import { URL_API } from "../../config";
+import { post } from "../../api/http";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const SET_WRONG_AUTH = "SET_WRONG_AUTH";
 
@@ -9,22 +9,19 @@ interface User {
 }
 
 export const loginUser = (user: User, dispatch: any) => {
-  fetch(URL_API, {
-    method: "POST",
-    body: JSON.stringify(user)
-  })
-    .then(res => res.json())
+  post<{ result: "ok" | "error"; error: string }>(user)
     .then(data => {
-      if (data.result === "ok") {
+      if (data != null && data.result === "ok") {
         const token = "12345"; // must be arrived from server
         localStorage.setItem("token", token);
         dispatch(setCurrentUser(token));
-      } else if (data.result === "error") {
+      } else if (data != null && data.result === "error") {
         dispatch(setWrongAuth(data.error));
         logoutUser(dispatch);
       }
     })
     .catch(err => {
+      console.log("ERROR:", err);
       logoutUser(dispatch);
     });
 };
@@ -36,10 +33,10 @@ export const setCurrentUser = (token: string) => {
   };
 };
 
-export const setWrongAuth = (err: string) => {
+export const setWrongAuth = (error: string) => {
   return {
     type: SET_WRONG_AUTH,
-    payload: err
+    payload: error
   };
 };
 

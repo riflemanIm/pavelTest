@@ -3,7 +3,7 @@ import { Loader } from "semantic-ui-react";
 import isEmpty from "../helpers/isEmpty";
 import { find } from "lodash";
 import Body from "./Body";
-import { URL_API } from "../config";
+import { post } from "../api/http";
 import ConverterForm, {
   IOption,
   IPair
@@ -18,11 +18,8 @@ const Converter = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(URL_API, {
-      method: "POST",
-      body: JSON.stringify({ action: "quote" })
-    })
-      .then(res => res.json())
+
+    post<{ result: "ok" | "error"; assets: [] }>({ action: "quote" })
       .then(data => {
         if (data.result === "ok") {
           data.assets.forEach((item: IQuote, i1: number) => {
@@ -54,6 +51,7 @@ const Converter = () => {
       })
       .catch(err => {
         console.log("ERROR:", err);
+        setLoading(false);
       });
   }, []);
 
