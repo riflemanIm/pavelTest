@@ -19,7 +19,7 @@ interface IProps {
 const QuoteRow = (props: IProps) => {
   const { item, index, onClick } = props;
   return (
-    <Table.Row onClick={() => onClick(index)}>
+    <Table.Row onClick={() => onClick(index)} style={{ cursor: "pointer" }}>
       <Table.Cell>
         {item.fav ? (
           <Icon name="star" className="star" />
