@@ -12,4 +12,4 @@ In the project directory, you can run:
 
 ## Password
 
-### `TestPassword123\`
+### `TestPassword123_`
