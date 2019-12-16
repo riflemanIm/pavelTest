@@ -4,7 +4,7 @@ import { Container, Segment, Icon, Button } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import { logoutUser } from "../context/actions/authentication.action";
 import AuthStateGlobal from "../context/AuthStateGlobal";
-import "../styles/Body.css";
+import "../styles/Body.scss";
 
 export interface IProps {
   children: [JSX.Element] | JSX.Element;
