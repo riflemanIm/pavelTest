@@ -138,11 +138,13 @@ ui.form input:not([type]),
     top: 0;
     margin-bottom: 0px;
   }
-  .ui.table thead th {
-    color: rgba(0, 0, 0, 0.87);
-  }
-  .ui.table thead tr {
-    padding-top: 0 !important;
+  .ui.table thead {
+    th {
+      color: rgba(0, 0, 0, 0.87);
+    }
+    tr {
+      padding-top: 0 !important;
+    }
   }
 
   .ui.header.header-main {
