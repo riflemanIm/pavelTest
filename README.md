@@ -8,8 +8,8 @@ In the project directory, you can run:
 
 ## Login
 
-### `test@mail.ru`
+`test@mail.ru`
 
 ## Password
 
-### `TestPassword123_`
+`TestPassword123_`
