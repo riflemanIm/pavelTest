@@ -30,8 +30,8 @@ const QuotesTable = (props: IProps) => {
         <Table.Row>
           <Table.HeaderCell></Table.HeaderCell>
           <Table.HeaderCell>Валютная пара</Table.HeaderCell>
-          <Table.HeaderCell>Котировка</Table.HeaderCell>
           <Table.HeaderCell>Дата получения</Table.HeaderCell>
+          <Table.HeaderCell>Котировка</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
